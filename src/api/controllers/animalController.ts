@@ -1,6 +1,6 @@
 // animalController.ts
 import {Request, Response, NextFunction} from 'express';
-import {getAllAnimals} from '../models/animalModel';
+import {getAllAnimals, getAnimalById} from '../models/animalModel';
 import {Animal} from '../../types/DBTypes';
 
 const animalListGet = async (
@@ -16,4 +16,18 @@ const animalListGet = async (
   }
 };
 
-export {animalListGet};
+const animalGet = async (
+  req: Request<{id: string}, {}, {}>,
+  res: Response<Animal>,
+  next: NextFunction
+) => {
+  try {
+    const id = Number(req.params.id);
+    const animal = await getAnimalById(id);
+    res.json(animal);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export {animalListGet, animalGet};

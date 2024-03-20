@@ -1,6 +1,6 @@
 // speciesController.ts
 import {Request, Response, NextFunction} from 'express';
-import {getAllSpecies} from '../models/speciesModel';
+import {getAllSpecies, getSpeciesById} from '../models/speciesModel';
 import {Species} from '../../types/DBTypes';
 
 const speciesListGet = async (
@@ -16,4 +16,18 @@ const speciesListGet = async (
   }
 };
 
-export {speciesListGet};
+const speciesGet = async (
+  req: Request<{id: string}, {}, {}>,
+  res: Response<Species>,
+  next: NextFunction
+) => {
+  try {
+    const id = Number(req.params.id);
+    const species = await getSpeciesById(id);
+    res.json(species);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export {speciesListGet, speciesGet};
