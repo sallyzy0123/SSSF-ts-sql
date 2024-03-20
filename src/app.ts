@@ -22,6 +22,7 @@ app.get<{}, MessageResponse>('/', (_req, res) => {
 });
 
 app.use('/api/v1', api);
+// TODO: copy the api and do your version 2
 
 app.use(notFound);
 app.use(errorHandler);
