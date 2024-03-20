@@ -1,6 +1,8 @@
 import express from 'express';
 
 import categoryRoute from './routes/categoryRoute';
+import speciesRoute from './routes/speciesRoute';
+import animalRoute from './routes/animalRoute';
 import {MessageResponse} from '../types/MessageTypes';
 
 const router = express.Router();
@@ -12,5 +14,7 @@ router.get<{}, MessageResponse>('/', (_req, res) => {
 });
 
 router.use('/categories', categoryRoute);
+router.use('/species', speciesRoute);
+router.use('/animal', animalRoute);
 
 export default router;
